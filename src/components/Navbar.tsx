@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link';
-import React, { useEffect } from 'react';
 import HomeIcon from './ui/icons/HomeIcon';
 import SearchIcon from './ui/icons/SearchIcon';
 import NewIcon from './ui/icons/NewIcon';
@@ -20,12 +19,8 @@ const menu = [
 export default function Navbar() {
   const pathname = usePathname()
   const { data: session, status } = useSession() // 세션 정보 가져옴
-  // const router = useRouter()
   console.log(session)
-  // 세션 상태 확인 로직 추가
-  useEffect(() => {
-    console.log('Session status:', status)
-  }, [status])
+
   return (
     <div className='flex justify-between items-center p-3'>
       <Link href='/'>
