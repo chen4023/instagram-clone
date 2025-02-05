@@ -1,6 +1,6 @@
 type Props = {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 export default function ColorButton({ text, onClick }: Props) {
   return (
