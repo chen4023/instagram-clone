@@ -7,7 +7,6 @@ type Props = {
   callbackUrl: string;
 }
 export default function Signin({ providers, callbackUrl }: Props) {
-  console.log(callbackUrl)
   return (
     <>
       {providers && Object.values(providers).map((provider) => (
