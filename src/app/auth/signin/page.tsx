@@ -18,7 +18,7 @@ export default async function SignPage({ searchParams }: Props) {
   }
   const providers = (await getProviders()) ?? {}
   return (
-    <section className="flex justify-center mt-[30%]">
+    <section className="flex justify-center border py-36">
       <Signin providers={providers} callbackUrl={callbackUrl ?? '/'} />
     </section>)
 }
