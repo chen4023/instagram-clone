@@ -8,7 +8,7 @@ export default function Avatar({ image, size = 'normal', highlignt = false }: Pr
   return (
     <div className={getContainerStyle(size, highlignt)}>
       {/* eslint-disable-next-line @next/next/no-img-element*/}
-      <img className={`rounded-full bg-white p-2 ${getImageSizeStyle(size)}`}
+      <img className={`rounded-full object-cover bg-white p-2 ${getImageSizeStyle(size)}`}
         src={image ?? undefined}
         alt='User Profile'
         referrerPolicy='no-referrer' />

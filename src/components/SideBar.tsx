@@ -8,7 +8,6 @@ type Props = {
 
 
 export default function SideBar({ user: { name, username, image } }: Props) {
-
   return (
     <>
       <div className='flex gap-3 items-center'>
