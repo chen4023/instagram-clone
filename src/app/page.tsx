@@ -1,20 +1,25 @@
-import Image from "next/image";
-import { getPosts, Post } from "../service/post";
+import FollowingBar from "@/components/FollowingBar";
+import PostList from "@/components/PostList";
+import SideBar from "@/components/SideBar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const posts = await getPosts() as Post[]
+  const session = await getServerSession(authOptions);
+  const user = session?.user
+  if (!user) {
+    redirect('/auth/signin')
+  }
   return (
-    <>
-      <h1 className="text-gray-700">Instagram </h1>
-      <div>
-        {posts.map(({ _id, author: { name, email }, photo: { asset: { url } } }) => (
-
-          <li key={_id}>
-            <p>{name} : {email}</p>
-            <Image src={url} alt="image" width={300} height={300} />
-          </li>
-        ))}
+    <section className="w-full max-w-[850px] p-4 flex flex-col mx-auto md:flex-row justify-between">
+      <div className="w-full basis-3/4">
+        <FollowingBar />
+        <PostList />
       </div>
-    </>
+      <div className="basis-1/4">
+        <SideBar user={user} />
+      </div>
+    </section>
   );
 }

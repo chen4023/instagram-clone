@@ -40,7 +40,7 @@ export default function Navbar() {
           {user ? user.image && (
             <li className='flex items-center gap-5'>
               <Link href={`/user/${user.username}`}>
-                <Avatar image={user.image} />
+                <Avatar image={user.image} size='small' highlignt />
               </Link>
               <Link href="/api/auth/signout"><ColorButton text='Sign Out' /></Link>
             </li>
