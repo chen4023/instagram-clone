@@ -1,34 +1,20 @@
 import { client } from "@/service/sanity";
-export type Author = {
-  _id: string;
-  name: string;
-  username: string;
-  email: string;
-};
 
-export type Post = {
-  _id: string;
-  author: Author;
-  photo: {
-    asset: {
-      url: string;
-    };
-  };
-};
+const simplePostProjection = `
+...,
+"username": author->username,
+"userImage": author->image,
+"image": photo,
+"likes": like[]->username,
+"text":comments[0].comment,
+"comments":count(comments),
+"id":_id,
+"createdAt":_createdAt
+`;
+
 //post 데이터 fetching
-export async function getPosts(): Promise<Post[]> {
-  return client.fetch(`*[_type == "post"] {
-    _id,
-    author->{
-      _id,
-      name,
-      username,
-      email
-    },
-    photo {
-      asset->{
-        url
-      }
-    }
-  }`);
+export async function getFollowingPostOf(username: string) {
+  return client.fetch(`*[_type == "post" && author->username == "${username}"
+    || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
+    | order(_createAt desc){${simplePostProjection}}`);
 }
