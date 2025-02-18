@@ -1,4 +1,5 @@
-import { client } from "@/service/sanity";
+import { SimplePost } from "@/model/Post";
+import { client, urlFor } from "@/service/sanity";
 
 const simplePostProjection = `
 ...,
@@ -14,7 +15,16 @@ const simplePostProjection = `
 
 //post 데이터 fetching
 export async function getFollowingPostOf(username: string) {
-  return client.fetch(`*[_type == "post" && author->username == "${username}"
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"
     || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
-    | order(_createAt desc){${simplePostProjection}}`);
+    | order(_createAt desc){${simplePostProjection}}`
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({
+        ...post,
+        image: urlFor(post.image),
+      }))
+    );
 }
