@@ -1,10 +1,36 @@
 'use client'
+import { useState } from "react";
 import EmojiIcon from "./ui/icons/EmojiIcon";
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 export default function CommentBar() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('');
+
+  const handleEmojiSelect = (emojiData: EmojiClickData) => {
+    setInputValue(prevInput => prevInput + emojiData.emoji);
+    setIsOpen(false); // 선택 후 자동으로 닫히게 함
+  }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  }
+  const onEmojiClick = () => {
+    setIsOpen(prev => !prev)
+  }
   return (
-    <div className="flex items-center gap-2 pt-3">
-      <input type="text" placeholder="댓글 달기 ..." className="w-full bg-neutral-50 py-3 px-1 h-7 outline-none" />
-      <button><EmojiIcon /></button>
+    <div className="flex relative items-center gap-2 pt-3">
+      <input type="text" value={inputValue} onChange={handleInputChange} placeholder="댓글 달기 ..." className="w-full py-3 px-1 h-7 outline-none" />
+      <button onClick={onEmojiClick}><EmojiIcon /></button>
+      {isOpen &&
+        <div className="absolute bottom-9 right-0 z-10">
+          <EmojiPicker
+            onEmojiClick={handleEmojiSelect}
+            lazyLoadEmojis={true}
+            searchDisabled={true}
+            skinTonesDisabled={true}
+            height={300}
+            width={300}
+          />
+        </div>}
     </div>
   );
 }
