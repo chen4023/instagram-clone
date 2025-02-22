@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import EmojiIcon from "./ui/icons/EmojiIcon";
+import EmojiIcon from "../ui/icons/EmojiIcon";
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 export default function CommentBar() {
   const [isOpen, setIsOpen] = useState(false)
