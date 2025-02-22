@@ -17,7 +17,7 @@ export default function CommentBar() {
     setIsOpen(prev => !prev)
   }
   return (
-    <div className="flex relative items-center gap-2 pt-3">
+    <form className="flex relative items-center gap-2 pt-3">
       <input type="text" value={inputValue} onChange={handleInputChange} placeholder="댓글 달기 ..." className="w-full py-3 px-1 h-7 outline-none" />
       <button onClick={onEmojiClick}><EmojiIcon /></button>
       {isOpen &&
@@ -31,7 +31,7 @@ export default function CommentBar() {
             width={300}
           />
         </div>}
-    </div>
+    </form>
   );
 }
 
