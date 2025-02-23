@@ -10,8 +10,8 @@ type Props = {
 export default function PostAuthor({ post }: Props) {
   const { userImage, username, createdAt } = post;
   return (
-    <div className='flex justify-between items-center w-full p-3' >
-      <div className='flex items-center gap-1.5'>
+    <div className='flex justify-between items-center w-full text-sm p-3 border-b border-neutral-200' >
+      <div className='flex items-center gap-3'>
         <Avatar image={userImage} highlignt size='small' />
         <span className='font-bold'>{username}</span>
         <p className='text-neutral-400 text-xs'> • {parseDate(createdAt)}</p>
