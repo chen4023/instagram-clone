@@ -10,7 +10,6 @@ export default function PostDetail({ post }: { post: SimplePost }) {
   const { id, username, image } = post;
   const { data } = useSWR<FullPost>(`/api/post/${id}`);
   const comments = data?.comments
-  console.log(comments)
   return (
     <div className="flex w-[70%] h-[80%] bg-white rounded-md">
       <Image className='basis-3/5 object-cover' src={image} alt={`photo by ${username}`} width={300} height={300} />
