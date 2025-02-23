@@ -1,16 +1,20 @@
-import { SimplePost } from "@/model/Post";
+import { FullPost, SimplePost } from "@/model/Post";
 import Image from "next/image";
 import PostAuthor from "./PostAuthor";
 import ActionBar from "./ActionBar";
 import CommentBar from "./CommentBar";
 import PostContent from "./PostContent";
 import Avatar from "../Avatar";
+import useSWR from "swr";
 
 export default function PostDetail({ post }: { post: SimplePost }) {
-  const { username, image, userImage, text } = post;
+  const { id, username, image, userImage, text } = post;
+  const { data } = useSWR<FullPost>(`/api/post/${id}`);
+  const comments = data?.comments
+  console.log(comments)
   return (
-    <div className="flex w-[70%] h-[95%] bg-white rounded-md">
-      <Image className='basis-3/5' src={image} alt={`photo by ${username}`} width={300} height={300} />
+    <div className="flex w-[70%] h-[80%] bg-white rounded-md">
+      <Image className='basis-3/5 object-cover' src={image} alt={`photo by ${username}`} width={300} height={300} />
       <div className="basis-2/5 p-2 flex flex-col justify-between">
         <div>
           <PostAuthor post={post} />
