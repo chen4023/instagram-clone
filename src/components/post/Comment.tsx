@@ -11,7 +11,7 @@ export default function Comment({ comment, isFirstComment = false }: { comment: 
   return (
     <div className='w-full flex justify-between text-sm items-center gap-2 my-4 px-3'>
       <div className='w-full flex items-center gap-1.5'>
-        <Avatar image={userImage} size='small' />
+        <Avatar image={userImage} size='small' highlignt={isFirstComment} />
         <div>
           <div className='flex gap-2 mb-0.5'>
             <span className='font-semibold'>{username}</span>

@@ -12,7 +12,7 @@ export default function PostDetail({ post }: { post: SimplePost }) {
   const comments = data?.comments
   return (
     <div className="flex w-[70%] h-[80%] bg-white rounded-md">
-      <Image className='basis-3/5 object-cover' src={image} alt={`photo by ${username}`} width={300} height={300} />
+      <Image className='basis-3/5 object-cover' src={image} alt={`photo by ${username}`} priority width={300} height={300} />
       <div className="basis-2/5 p-2 flex flex-col justify-between">
         <div>
           {comments && comments.map((comment, index) => (

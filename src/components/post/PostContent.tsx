@@ -11,7 +11,6 @@ export default function PostContent({ post, detail = true }: { post: SimplePost,
           <p className='font-semibold'>{username}</p>
           <p>{post.text}</p>
         </div>}
-
       </div>
     </div>
   );
