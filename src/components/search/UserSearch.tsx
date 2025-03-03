@@ -17,7 +17,7 @@ export default function UserSearch() {
   // 검색하는 keyword가 없다면 /api/search -> 전체 유저를 보여줘 (ex. 처음 searchPage에 들어온 경우)
   const [isFocused, setIsFocused] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const debouncedSearch = useDebounce(searchTerm, 1000)
+  const debouncedSearch = useDebounce(searchTerm.includes("*") ? searchTerm.replace(/\*/g, "_") : searchTerm, 1000)
 
   const { data: users, isLoading } = useSWR<SearchUser[]>(() => searchTerm ? `/api/search/${debouncedSearch}` : '/api/search');
   console.log(users)
