@@ -7,7 +7,7 @@ import { PulseLoader } from "react-spinners";
 import useSWR from "swr";
 import SearchResultCard from "./SearchResultCard";
 import { SearchUser } from "@/model/User";
-import useDebounce from "@/util/hooks";
+import useDebounce from "@/hooks/debounce";
 
 
 
