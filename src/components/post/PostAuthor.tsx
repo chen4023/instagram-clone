@@ -14,7 +14,7 @@ export default function PostAuthor({ post }: Props) {
   return (
     <div className='flex justify-between items-center w-full text-sm p-3 border-b border-neutral-200' >
       <div className='flex items-center gap-3'>
-        <Avatar image={userImage} highlignt size='small' />
+        <Avatar image={userImage} highlight size='small' />
         <span className='font-bold'>{username}</span>
         <p className='text-neutral-400 text-xs'> • {parseDate(createdAt)}</p>
       </div>

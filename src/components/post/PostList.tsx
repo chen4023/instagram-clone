@@ -9,7 +9,7 @@ export default function PostList() {
   const { data: posts, isLoading } = useSWR<SimplePost[]>('/api/post');
   return (
     <ul className='w-full'>
-      {isLoading && <PulseLoader className='text-center mt-32' color='red' size={8} />}
+      {isLoading && <PulseLoader className='text-center mt-32' color='gray' size={8} />}
       {posts && posts.map((post, index) => <PostCard key={post.id} post={post} priority={index < 2} />)}
     </ul>
   );

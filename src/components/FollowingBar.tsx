@@ -20,7 +20,7 @@ export default function FollowingBar() {
   return (
     <section className='w-full mx-auto flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto'>
       {isLoading ? (
-        <PulseLoader size={8} color='red' />
+        <PulseLoader size={8} color='gray' />
       ) : (
         (!users || users.length === 0) && <p>{`You don't have Following!`}</p>
       )}
@@ -28,7 +28,7 @@ export default function FollowingBar() {
         <ScrollableBar>
           {users.map(({ image, username }) => (
             <Link key={username} href={`/user/${username}`} className='flex flex-col items-center gap-1 w-16'>
-              <Avatar image={image} highlignt />
+              <Avatar image={image} highlight />
               <p className='w-full text-sm text-center text-ellipsis overflow-hidden'>{username}</p>
             </Link>
           ))}

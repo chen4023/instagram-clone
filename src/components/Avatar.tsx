@@ -1,12 +1,12 @@
 import React from 'react';
 type Props = {
   image?: string | null
-  size?: 'small' | 'normal'
-  highlignt?: boolean
+  size?: 'small' | 'normal' | 'large'
+  highlight?: boolean
 }
-export default function Avatar({ image, size = 'normal', highlignt = false }: Props) {
+export default function Avatar({ image, size = 'large', highlight = false }: Props) {
   return (
-    <div className={getContainerStyle(size, highlignt)}>
+    <div className={getContainerStyle(size, highlight)}>
       {/* eslint-disable-next-line @next/next/no-img-element*/}
       <img className={`rounded-full object-cover bg-white p-2 ${getImageSizeStyle(size)}`}
         src={image ?? undefined}
@@ -19,10 +19,34 @@ export default function Avatar({ image, size = 'normal', highlignt = false }: Pr
 function getContainerStyle(size: string, highlight: boolean): string {
   const baseStyle = 'rounded-full flex justify-center items-center';
   const highlightStyle = highlight ? 'bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300' : '';
-  const sizeStyle = size === 'small' ? 'w-9 h-9' : 'w-[68px] h-[68px]'
+  let sizeStyle;
+  switch (size) {
+    case 'small':
+      sizeStyle = 'w-9 h-9'
+      break
+    case 'normal':
+      sizeStyle = 'w-[48px] h-[48px]'
+      break
+    case 'large':
+      sizeStyle = 'w-[68px] h-[68px]'
+      break
+    default:
+      sizeStyle = ''
+      break
+  }
+  // const sizeStyle = size === 'small' ? 'w-9 h-9' : 'w-[68px] h-[68px]'
   return `${baseStyle} ${highlightStyle} ${sizeStyle}`
 }
 
 function getImageSizeStyle(size: string): string {
-  return size === 'small' ? 'w-[34px] h-[34px] p-[0.1rem]' : 'w-16 h-16 p-[0.2rem]'
+  switch (size) {
+    case 'small':
+      return 'w-[34px] h-[34px] p-[0.1rem]'
+    case 'normal':
+      return 'w-[44px] h-[44px] p-[0.15rem]'
+    case 'large':
+      return 'w-16 h-16 p-[0.2rem]'
+    default:
+      return ''
+  }
 }
