@@ -1,7 +1,7 @@
 import React from 'react';
 type Props = {
   image?: string | null
-  size?: 'small' | 'normal' | 'large'
+  size?: 'small' | 'normal' | 'large' | 'xlarge'
   highlight?: boolean
 }
 export default function Avatar({ image, size = 'large', highlight = false }: Props) {
@@ -30,6 +30,9 @@ function getContainerStyle(size: string, highlight: boolean): string {
     case 'large':
       sizeStyle = 'w-[68px] h-[68px]'
       break
+    case 'xlarge':
+      sizeStyle = 'w-[120px] h-[120px]'
+      break
     default:
       sizeStyle = ''
       break
@@ -46,6 +49,8 @@ function getImageSizeStyle(size: string): string {
       return 'w-[44px] h-[44px] p-[0.15rem]'
     case 'large':
       return 'w-16 h-16 p-[0.2rem]'
+    case 'xlarge':
+      return 'w-[116px] h-[116px] p-[0.25rem]'
     default:
       return ''
   }

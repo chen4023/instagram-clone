@@ -32,6 +32,16 @@ export async function getUserByEmail(email: string) {
     }`);
 }
 
+export async function getUserByUsername(username: string) {
+  return client.fetch(`*[_type == "user" && username == "${username}"] {
+    ...,
+    "id":_id,
+    "following" : count(following),
+    "followers" : count(followers),
+    "bookmarks":bookmarks[]->_id
+    }`);
+}
+
 export async function searchUsers(keyword?: string) {
   const query = keyword
     ? `&& (name match "${keyword}") || (username match "${keyword}")`

@@ -1,4 +1,4 @@
-import { SimplePost } from "@/model/Post";
+import { PhotoPost, SimplePost } from "@/model/Post";
 import { client, urlFor } from "@/service/sanity";
 
 const simplePostProjection = `
@@ -51,4 +51,21 @@ export async function getPost(id: string) {
     }`
     )
     .then((post) => ({ ...post, image: urlFor(post.image) }));
+}
+
+// username과 author의 username이 동일한 post
+export async function getByUsernamePost(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"] {
+    "image": photo,
+    "id":_id,
+    }`
+    )
+    .then((posts) =>
+      posts.map((post: PhotoPost) => ({
+        ...post,
+        image: urlFor(post.image),
+      }))
+    );
 }
