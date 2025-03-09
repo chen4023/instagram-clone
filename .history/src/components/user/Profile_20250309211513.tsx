@@ -1,12 +1,11 @@
 'use client'
 import Avatar from '../Avatar';
 import useSWR from 'swr';
-// import { PulseLoader } from 'react-spinners';
-import ProfileSkeleton from './ProfileSkeleton';
+import { PulseLoader } from 'react-spinners';
 
 export default function Profile({ username }: { username: string }) {
   const { data: user, isLoading } = useSWR(`/api/user/${username}`)
-  if (isLoading) return <ProfileSkeleton />
+  if (isLoading) return <PulseLoader size={8} color='gray' />
   const { image, name, followers, following } = user;
   console.log('프로필 :', user)
 

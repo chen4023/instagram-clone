@@ -1,7 +1,7 @@
 'use client'
 import Avatar from '../Avatar';
 import useSWR from 'swr';
-// import { PulseLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 import ProfileSkeleton from './ProfileSkeleton';
 
 export default function Profile({ username }: { username: string }) {

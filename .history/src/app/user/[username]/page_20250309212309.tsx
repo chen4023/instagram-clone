@@ -12,9 +12,8 @@ export default async function UserPage({ params }: Props) {
   return (
     <section>
       <Profile username={username} />
-      <Suspense fallback={<ProfilePostSkeleton />}>
-        <ProfilePost username={username} />
-      </Suspense>
+      <Suspense fallback={<ProfilePostSkeleton />}
+      <ProfilePost username={username} />
     </section>
   );
 }

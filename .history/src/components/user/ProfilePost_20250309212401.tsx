@@ -1,15 +1,14 @@
 'use client'
 
-// import { PulseLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 import useSWR from "swr";
 // import PostCard from "../post/PostCard";
 import { PhotoPost } from "@/model/Post";
 import Image from "next/image";
-import ProfilePostSkeleton from "./ProfilePostSkeleton";
 
 export default function ProfilePost({ username }: { username: string }) {
-  const { data: posts, isLoading, error } = useSWR<PhotoPost[]>(`/api/post/userpost/${username}`)
-  if (isLoading) return <ProfilePostSkeleton />
+  const { data: posts, error } = useSWR<PhotoPost[]>(`/api/post/userpost/${username}`)
+  // if (isLoading) return <PulseLoader size={8} color="gray" />
   if (error) {
     console.error('Error loading posts:', error);
     return <div className="text-red-500">포스트를 불러오는 중 오류가 발생했습니다.</div>;

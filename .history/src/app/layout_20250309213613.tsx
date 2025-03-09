@@ -24,16 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="en" className={openSans.className}>
-      <body className='w-full max-w-screen-xl mx-auto overflow-auto'>
+    <html lang="en" className={openSans.className}>
+      <body suppressHydrationWarning className='w-full max-w-screen-xl mx-auto overflow-auto'>
         <Authcontext>
           <header className="sticy top-0 bg-white z-10 border-b"><Navbar /></header>
           <main className="w-full flex justify-center min-h-full">
-            <SWRConfigContext>
-              <Provider>
-                {children}
-              </Provider>
-            </SWRConfigContext>
+            <SWRConfigContext><Provider>{children}</Provider></SWRConfigContext>
           </main>
         </Authcontext>
         <div id="portal" />
