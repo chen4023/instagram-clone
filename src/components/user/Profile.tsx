@@ -1,24 +1,29 @@
 'use client'
+import { notFound } from 'next/navigation';
 import Avatar from '../Avatar';
-import useSWR from 'swr';
 // import { PulseLoader } from 'react-spinners';
-import ProfileSkeleton from './ProfileSkeleton';
+import { ProfileUser } from '@/model/User';
+import FollowButton from './FollowButton';
 
-export default function Profile({ username }: { username: string }) {
-  const { data: user, isLoading } = useSWR(`/api/user/${username}`)
-  if (isLoading) return <ProfileSkeleton />
-  const { image, name, followers, following } = user;
+export default function Profile({ user }: { user: ProfileUser }) {
+  const { image, name, followers, following, posts, username } = user;
+  if (!user) {
+    notFound()
+  }
   console.log('프로필 :', user)
 
   return (
     <div className='w-full flex items-center justify-center gap-12 mt-10'>
       <Avatar image={image} size='xlarge' highlight />
       <div className='flex flex-col gap-2 justify-center'>
-        <p className='text-lg'>{username}</p>
+        <div className='flex gap-4 items-center'>
+          <p className='text-lg'>{username}</p>
+          <FollowButton user={user} />
+        </div>
         <div className='flex gap-5 text-sm'>
-          <p>팔로워 {followers ? followers : 0} </p>
-          <p>팔로잉 {following ? following : 0} </p>
-          <p>팔로잉 {following ? following : 0} </p>
+          <p>게시물 {posts} </p>
+          <p>팔로워 {followers} </p>
+          <p>팔로잉 {following} </p>
         </div>
         <p className='font-semibold'>{name}</p>
       </div>

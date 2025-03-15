@@ -8,6 +8,7 @@ import { useState } from "react";
 import ModalPortal from "../ui/ModalPortal";
 import PostModal from "../PostModal";
 import PostDetail from "../post/PostDetail";
+import NotPost from "../post/NotPost";
 
 export default function ProfilePost({ username }: { username: string }) {
   const [selectedPost, setSelectedPost] = useState<SimplePost | null>(null)
@@ -17,14 +18,12 @@ export default function ProfilePost({ username }: { username: string }) {
     console.error('Error loading posts:', error);
     return <div className="text-red-500">포스트를 불러오는 중 오류가 발생했습니다.</div>;
   }
-  if (!posts || posts.length === 0) return <div>포스트가 없습니다.</div>;
-  console.log(posts)
+  if (!posts || posts.length === 0) return <NotPost />;
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-8 px-3">
       {posts.map((post) => (
         <div key={post.id}>
           <Image onClick={() => setSelectedPost(post)} src={post.image} alt={post.id} className="h-[320px] cursor-pointer" width={307} height={410} />
-
         </div>
       ))
       }

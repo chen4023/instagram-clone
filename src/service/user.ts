@@ -33,13 +33,22 @@ export async function getUserByEmail(email: string) {
 }
 
 export async function getUserByUsername(username: string) {
-  return client.fetch(`*[_type == "user" && username == "${username}"] {
+  return client
+    .fetch(
+      `*[_type == "user" && username == "${username}"][0] {
     ...,
     "id":_id,
     "following" : count(following),
     "followers" : count(followers),
-    "bookmarks":bookmarks[]->_id
-    }`);
+    "posts": count(*[type == "post" && author->username == "${username}"]),
+    }`
+    )
+    .then((user) => ({
+      ...user,
+      following: user.following ?? 0,
+      followers: user.followers ?? 0,
+      posts: user.posts ?? 0,
+    }));
 }
 
 export async function searchUsers(keyword?: string) {
