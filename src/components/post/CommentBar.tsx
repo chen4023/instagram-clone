@@ -23,7 +23,6 @@ export default function CommentBar() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('제출', inputValue)
     setInputValue('')
   }
 

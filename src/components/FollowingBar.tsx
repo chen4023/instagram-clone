@@ -3,7 +3,7 @@ import React from 'react';
 import useSWR from 'swr';
 import { PulseLoader } from 'react-spinners'
 import Avatar from './Avatar';
-import { DetailUser } from '@/model/User';
+import { HomeUser } from '@/model/User';
 import Link from 'next/link';
 import ScrollableBar from './ScrollableBar';
 
@@ -12,7 +12,7 @@ export default function FollowingBar() {
   // 2. 백엔드에서는 현재 로그인된 사용자의 세션 정보를 이용해서 사용자의 상세정보를 sanity에서 받아옴
   // 3. client 컴포넌트에서 followings의 정보를 UI에 보여줌
   // 4. (image, username)
-  const { data, isLoading } = useSWR<DetailUser[]>('api/me');
+  const { data, isLoading } = useSWR<HomeUser[]>('api/me');
   const users = data?.[0]?.following
 
   // const users = undefined

@@ -1,9 +1,9 @@
 import React from 'react';
 import Avatar from './Avatar';
-import { User } from '@/model/User';
+import { AuthUser } from '@/model/User';
 
 type Props = {
-  user: User
+  user: AuthUser
 }
 
 

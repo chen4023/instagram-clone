@@ -20,11 +20,9 @@ export default function UserSearch() {
   const debouncedSearch = useDebounce(searchTerm.includes("*") ? searchTerm.replace(/\*/g, "_") : searchTerm, 1000)
 
   const { data: users, isLoading } = useSWR<SearchUser[]>(() => searchTerm ? `/api/search/${debouncedSearch}` : '/api/search');
-  console.log(users)
 
   const handleSearchTerm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
-    console.log(searchTerm)
   }
   return (
     <section className="relative max-w-[400px] h-[40px] mx-auto">

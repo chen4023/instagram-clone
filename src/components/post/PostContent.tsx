@@ -2,7 +2,6 @@ import { SimplePost } from '@/model/Post';
 import React from 'react';
 
 export default function PostContent({ post, detail = true }: { post: SimplePost, detail?: boolean }) {
-  console.log(post)
   const { likes, username } = post;
   return (
     <div>
