@@ -1,4 +1,4 @@
-import { PhotoPost, SimplePost } from "@/model/Post";
+import { SimplePost } from "@/model/Post";
 import { client, urlFor } from "@/service/sanity";
 
 const simplePostProjection = `
@@ -58,12 +58,18 @@ export async function getByUsernamePost(username: string) {
   return client
     .fetch(
       `*[_type == "post" && author->username == "${username}"] {
+    ...,
+    "username" : author -> username,
+    "userImage": author->image,
     "image": photo,
+    "likes": likes[]->username,
+    comments[]{comment, "username": author->username, "userImage": author->image},
     "id":_id,
+    "createdAt":_createdAt
     }`
     )
     .then((posts) =>
-      posts.map((post: PhotoPost) => ({
+      posts.map((post: SimplePost) => ({
         ...post,
         image: urlFor(post.image),
       }))
