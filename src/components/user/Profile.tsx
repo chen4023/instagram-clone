@@ -1,7 +1,6 @@
 'use client'
 import { notFound } from 'next/navigation';
 import Avatar from '../Avatar';
-// import { PulseLoader } from 'react-spinners';
 import { ProfileUser } from '@/model/User';
 import FollowButton from './FollowButton';
 
@@ -10,7 +9,7 @@ export default function Profile({ user }: { user: ProfileUser }) {
   if (!user) {
     notFound()
   }
-
+  console.log(user)
   return (
     <div className='w-full flex flex-col md:flex-row md:gap-12 items-center justify-center gap-5 py-10'>
       <Avatar image={image} size='xlarge' highlight />

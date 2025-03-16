@@ -6,9 +6,7 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 
 type Context = {
-  params: {
-    slug: string[];
-  };
+  params: Promise<{ slug: string[] }>;
 };
 export async function GET(_: NextRequest, context: Context) {
   const { slug } = await context.params;

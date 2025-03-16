@@ -11,9 +11,9 @@ export default function PostDetail({ post }: { post: SimplePost }) {
   const { data } = useSWR<FullPost>(`/api/post/${id}`);
   const comments = data?.comments
   return (
-    <div className="flex w-[70%] h-[80%] bg-white rounded-md">
-      <Image className='basis-3/5 object-cover' src={image} alt={`photo by ${username}`} priority width={300} height={300} />
-      <div className="basis-2/5 p-2 flex flex-col justify-between">
+    <div className="flex flex-col md:flex-row w-[70%] h-[80%] bg-white rounded-md overflow-x-hidden overflow-y-scroll">
+      <Image className='w-full md:basis-3/5 object-cover' src={image} alt={`photo by ${username}`} priority width={300} height={300} />
+      <div className="w-full md:asis-2/5 p-2 flex flex-col justify-between">
         <div>
           {comments && comments.map((comment, index) => (
             <Comment key={comment.username} comment={comment} isFirstComment={index === 0}

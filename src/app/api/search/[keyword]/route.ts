@@ -2,7 +2,7 @@ import { searchUsers } from "@/service/user";
 import { NextRequest, NextResponse } from "next/server";
 
 type Context = {
-  params: { keyword: string };
+  params: Promise<{ keyword: string }>;
 };
 
 export async function GET(_: NextRequest, context: Context) {

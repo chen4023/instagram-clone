@@ -2,9 +2,7 @@
 import { getUserByUsername } from "@/service/user";
 import { NextRequest, NextResponse } from "next/server";
 type Context = {
-  params: {
-    username: string;
-  };
+  params: Promise<{ username: string }>;
 };
 
 export async function GET(_: NextRequest, context: Context) {

@@ -1,14 +1,9 @@
 'use client'
-// import Image from "next/image";
 import { useState } from "react";
-// import ModalPortal from "../ui/ModalPortal";
-// import PostModal from "../PostModal";
-// import PostDetail from "../post/PostDetail";
 import PostIcon from "../ui/icons/PostIcon";
 import LikeIcon from "../ui/icons/LikeIcon";
 import BookMarkIcon from "../ui/icons/BookMarkIcon";
 import PostGrid from "./PostGrid";
-// import { ProfileUser } from "@/model/User";
 
 type Props = {
   username: string

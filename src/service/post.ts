@@ -12,6 +12,13 @@ const simplePostProjection = `
 "id":_id,
 "createdAt":_createdAt
 `;
+// 이미지 url 변경
+function mapPost(posts: SimplePost[]) {
+  return posts.map((post: SimplePost) => ({
+    ...post,
+    image: urlFor(post.image),
+  }));
+}
 
 //post 데이터 fetching
 export async function getFollowingPostOf(username: string) {
@@ -57,13 +64,6 @@ export async function getByUsernamePost(username: string) {
     }`
     )
     .then(mapPost);
-}
-
-function mapPost(posts: SimplePost[]) {
-  return posts.map((post: SimplePost) => ({
-    ...post,
-    image: urlFor(post.image),
-  }));
 }
 
 // username과 author의 username이 동일한 post

@@ -10,7 +10,7 @@ export default function Comment({ comment, isFirstComment = false }: { comment: 
   const { username, userImage } = comment
   return (
     <div className='w-full flex justify-between text-sm items-center gap-2 my-4 px-3'>
-      <div className='w-full flex items-center gap-1.5'>
+      <div className={`w-full flex items-center gap-1.5 ${isFirstComment && 'pb-2 border-b-[0.5px] border-neutral-300'}`}>
         <Avatar image={userImage} size='small' highlight={isFirstComment} />
         <div>
           <div className='flex gap-2 mb-0.5'>
