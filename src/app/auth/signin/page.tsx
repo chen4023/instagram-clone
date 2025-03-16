@@ -1,5 +1,6 @@
 import Signin from "@/components/Signin";
 import { authOptions } from "@/lib/auth";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -9,6 +10,10 @@ type Props = Promise<{
   [key: string]: string | string[] | undefined;
 }>
 
+export const metadata: Metadata = {
+  title: 'SignIn',
+  description: 'SignUp or Login to Instangram'
+}
 export default async function SignPage({ searchParams }: { searchParams: Props }) {
   const { callbackUrl } = await searchParams
   const session = await getServerSession(authOptions);

@@ -1,6 +1,6 @@
 import UserSearch from '@/components/search/UserSearch';
 import React from 'react';
-
+export const dynamic = 'force-dynamic'
 export default function SearchPage() {
   return (
     <div className='w-full'>
