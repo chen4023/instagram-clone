@@ -10,7 +10,6 @@ export default function Profile({ user }: { user: ProfileUser }) {
   if (!user) {
     notFound()
   }
-  console.log('프로필 :', user)
 
   return (
     <div className='w-full flex flex-col md:flex-row md:gap-12 items-center justify-center gap-5 py-10'>
