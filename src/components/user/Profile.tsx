@@ -13,7 +13,7 @@ export default function Profile({ user }: { user: ProfileUser }) {
   console.log('프로필 :', user)
 
   return (
-    <div className='w-full flex items-center justify-center gap-12 mt-10'>
+    <div className='w-full flex flex-col md:flex-row md:gap-12 items-center justify-center gap-5 py-10'>
       <Avatar image={image} size='xlarge' highlight />
       <div className='flex flex-col gap-2 justify-center'>
         <div className='flex gap-4 items-center'>

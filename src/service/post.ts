@@ -23,12 +23,7 @@ export async function getFollowingPostOf(username: string) {
     | order(_createAt desc){${simplePostProjection}}`
       )
       // 이미지 최적화 부분 (sanity)
-      .then((posts) =>
-        posts.map((post: SimplePost) => ({
-          ...post,
-          image: urlFor(post.image),
-        }))
-      )
+      .then(mapPost)
   );
 }
 
@@ -57,21 +52,38 @@ export async function getPost(id: string) {
 export async function getByUsernamePost(username: string) {
   return client
     .fetch(
-      `*[_type == "post" && author->username == "${username}"] {
-    ...,
-    "username" : author -> username,
-    "userImage": author->image,
-    "image": photo,
-    "likes": likes[]->username,
-    comments[]{comment, "username": author->username, "userImage": author->image},
-    "id":_id,
-    "createdAt":_createdAt
+      `*[_type == "post" && author->username == "${username}"] | order(_createAt desc) {
+    ${simplePostProjection}
     }`
     )
-    .then((posts) =>
-      posts.map((post: SimplePost) => ({
-        ...post,
-        image: urlFor(post.image),
-      }))
-    );
+    .then(mapPost);
+}
+
+function mapPost(posts: SimplePost[]) {
+  return posts.map((post: SimplePost) => ({
+    ...post,
+    image: urlFor(post.image),
+  }));
+}
+
+// username과 author의 username이 동일한 post
+export async function getByUsernameLikedPost(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && "${username}" in likes[]->username] | order(_createAt desc) {
+    ${simplePostProjection}
+    }`
+    )
+    .then(mapPost);
+}
+
+// username과 author의 username이 동일한 post
+export async function getByUsernameSavedPost(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks[]._ref] | order(_createAt desc) {
+    ${simplePostProjection}
+    }`
+    )
+    .then(mapPost);
 }

@@ -1,6 +1,8 @@
 import { AiOutlineHeart } from "react-icons/ai";
-
-export default function LikeIcon() {
-  return <AiOutlineHeart className='w-6 h-6' />
+type Props = {
+  className?: string
+}
+export default function LikeIcon({ className }: Props) {
+  return <AiOutlineHeart className={className || 'w-6 h-6'} />
 }
 

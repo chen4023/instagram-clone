@@ -1,40 +1,39 @@
 'use client'
-
-import useSWR from "swr";
-import { SimplePost } from "@/model/Post";
-import Image from "next/image";
-import ProfilePostSkeleton from "./ProfilePostSkeleton";
+// import Image from "next/image";
 import { useState } from "react";
-import ModalPortal from "../ui/ModalPortal";
-import PostModal from "../PostModal";
-import PostDetail from "../post/PostDetail";
-import NotPost from "../post/NotPost";
+// import ModalPortal from "../ui/ModalPortal";
+// import PostModal from "../PostModal";
+// import PostDetail from "../post/PostDetail";
+import PostIcon from "../ui/icons/PostIcon";
+import LikeIcon from "../ui/icons/LikeIcon";
+import BookMarkIcon from "../ui/icons/BookMarkIcon";
+import PostGrid from "./PostGrid";
+// import { ProfileUser } from "@/model/User";
 
-export default function ProfilePost({ username }: { username: string }) {
-  const [selectedPost, setSelectedPost] = useState<SimplePost | null>(null)
-  const { data: posts, isLoading, error } = useSWR<SimplePost[]>(`/api/post/userpost/${username}`)
-  if (isLoading) return <ProfilePostSkeleton />
-  if (error) {
-    console.error('Error loading posts:', error);
-    return <div className="text-red-500">포스트를 불러오는 중 오류가 발생했습니다.</div>;
-  }
-  if (!posts || posts.length === 0) return <NotPost />;
+type Props = {
+  username: string
+}
+const tabs = [
+  { type: 'posts', title: '게시물', icon: <PostIcon /> },
+  { type: 'liked', title: '좋아요', icon: <LikeIcon className="w-3.5 h-3.5" /> },
+  { type: 'saved', title: '저장됨', icon: <BookMarkIcon className="w-3 h-3" /> }
+]
+export default function ProfilePost({ username }: Props) {
+  const [query, setQuery] = useState(tabs[0].type)
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-8 px-3">
-      {posts.map((post) => (
-        <div key={post.id}>
-          <Image onClick={() => setSelectedPost(post)} src={post.image} alt={post.id} className="h-[320px] cursor-pointer" width={307} height={410} />
-        </div>
-      ))
-      }
-      {selectedPost &&
-        <ModalPortal>
-          <PostModal onClose={() => setSelectedPost(null)}>
-            <PostDetail post={selectedPost} />
-          </PostModal>
-        </ModalPortal>
-      }
-    </div>
+    <section className="">
+      <ul className="flex items-center justify-center gap-20 border-t">
+        {tabs.map(({ type, title, icon }) =>
+          <li key={type}
+            onClick={() => setQuery(type)}
+            className={`flex items-center justify-center text-sm gap-1 pt-3 border-black cursor-pointer ${type === query && 'font-bold border-t'}`}>
+            <button className=" scale-150 md:scale-100">{icon}</button>
+            <span className="hidden md:inline">{title}</span>
+          </li>)}
+      </ul>
+      <PostGrid username={username} query={query} />
+    </section>
   );
 }
 
