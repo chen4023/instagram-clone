@@ -29,7 +29,7 @@ export default function FollowingBar() {
           {users.map(({ image, username }) => (
             <Link key={username} href={`/user/${username}`} className='flex flex-col items-center gap-1 w-16'>
               <Avatar image={image} highlight />
-              <p className='w-full text-sm text-center text-ellipsis overflow-hidden'>{username}</p>
+              <p className='w-full text-sm text-center truncate overflow-hidden'>{username}</p>
             </Link>
           ))}
         </ScrollableBar>
